@@ -1,0 +1,32 @@
+{% extends "myapp/layout/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Register</h1>
+<div class="row justify-content-center">
+<div class="card col-lg-4" class="my-3">
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="username">Username</label>
+            {{form.username}}
+        </div>
+        <div class="mb-4">
+            <label for="email">Email</label>
+            {{form.email}}
+        </div>
+        <div class="mb-4">
+            <label for="password1">Password</label>
+            {{form.password1}}
+        </div>
+        <div class="mb-4">
+            <label for="password">Password Confirmation</label>
+            {{form.password2}}
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+</div>
+</div>
+
+{% endblock content %}
+    

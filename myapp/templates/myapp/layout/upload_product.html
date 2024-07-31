@@ -1,0 +1,12 @@
+{% extends "myapp/layout/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Upload Product</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Upload</button>
+</form>
+{% endblock content %}
+    

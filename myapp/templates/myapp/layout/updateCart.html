@@ -1,0 +1,14 @@
+{% extends "myapp/layout/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Update produt</h1>
+<form action="" method="post" enctype="multipart/form-data">
+       {% csrf_token %}
+
+       <input type="text" name="title" value="{{cart.title}}">
+       <input type="file" name="image">
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+{% endblock content %}
+    

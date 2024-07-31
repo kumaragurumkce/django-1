@@ -1,0 +1,46 @@
+{% extends "myapp/layout/base.html" %}
+{% load static %}
+
+{% block content %}
+    {% if cart %}
+<div class="container">
+    <h1 class="mb-4">Cart Items</h1>
+    <div class="table-responsive">
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 1%; height: auto;">No</th>
+                    <th scope="col" style="width: 15%;">Image</th>
+                    <th scope="col" style="width: 25%;">Product</th>
+                    <th scope="col" style="width: 25%;">Quantity</th>
+                    <th scope="col" style="width: 25%;">Price</th>
+                    <th scope="col">Remove</th>
+
+                </tr>
+            </thead>
+            <tbody>
+    {% for item in cart %}
+    <tr>
+
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><img src="{{ item.image }}" alt="{{ item.title }}" class="img-fluid cart_list_img" ></td>
+                    <td class="mt-5">{{ item.title }}</td>
+                    <td>1</td>
+                    <td>$10.00</td>
+                    <td> <a href="{% url 'deleteCart_Item' pk=item.id %}" class="btn btn-danger">Delete</a></td>
+                </tr>
+
+                    {% endfor %}
+        
+               
+            </tbody>
+        </table>
+    </div>
+</div>
+    {% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+
+</div>
+
+{% endblock content %}

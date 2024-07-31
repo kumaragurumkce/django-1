@@ -1,0 +1,36 @@
+{% extends "myapp/layout/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>HOME</h1>
+<div class="container">
+
+<div class="row">
+{% for image in images %}
+<div class="col-md-3 my-3">
+    <div class="card home_card">
+        <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{image.title}}</h5>
+            <p class="card-text">$50</p>
+            {% comment %} <a href="{% url 'updateCart_content' pk=.id %}" class="btn btn-primary">Edit</a> {% endcomment %}
+            <a href="{% url 'updateCart_content' pk=image.id %}">Update</a>
+            <a href="{% url 'deleteCart_content' pk=image.id %}">Delete</a>
+            {% comment %} <div>{{pk=image.id}}</div> {% endcomment %}
+            {% if user.is_authenticated %}
+            <a href="{% url 'addCart_content' pk=image.id %}" class="btn btn-primary">Addcart</a>
+        {% else %}
+            <a href="{% url 'login' %}?next={% url 'addCart_content' pk=image.id %}" class="btn btn-primary">Add to cart</a>
+        {% endif %}
+        
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+</div>
+
+{% endblock content %}
+    

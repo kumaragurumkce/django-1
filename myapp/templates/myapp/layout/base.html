@@ -1,0 +1,22 @@
+<!-- myapp/templates/myapp/image_list.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image List</title>
+    <link rel="stylesheet" href="{% static 'myapp/assets/style.css'%}">
+    <link rel="stylesheet" href="{% static 'myapp/css/bootstrap.min.css' %}">
+</head>
+<body>
+{% include 'myapp/inc/header.html' %}
+    <div style="padding-top: 70px;">
+
+    </div>
+    {% block content %}
+        
+    {% endblock content %}
+        
+<script src="{% static 'myapp/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% load static %}
+<style>
+.nav-link{
+    position: relative;
+}.nav-link::after{
+    opacity: 0;
+    transition: all 0.2s;
+    height: 2px;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.nav-link:hover::after{
+    content: '';
+     opacity: 1;   
+}
+
+</style>
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home_content' %}">Home</a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                        
+                        
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'collections_content' %}">Collections</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'trends_content' %}">Trends</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact_content' %}">Contact us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about_content' %}">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'image_upload' %}">Upload</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cartList_content' %}"><img src="{% static 'myapp/assets/icons/shopping-cart.png' %}" class="img-fluid" height="30" width="30" alt="cart" srcset=""></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    {% endif %}
+                </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
