@@ -26,8 +26,10 @@ def image_upload(request):
 
 
 def home_content(request):
-    home_images=Image.objects.filter(category='home').order_by('-id')
-    return render(request,'myapp/layout/home.html',{'images':home_images})
+    # home_images=Image.objects.filter(category='home').order_by('-id')
+    products = Product.objects.all()
+    
+    return render(request,'myapp/layout/home.html',{'images':products})
 
 
 def collections_page(request):
