@@ -1,7 +1,7 @@
 # myapp/views.py
 
 from django.shortcuts import render, redirect,get_object_or_404
-from .models import Image,Product
+from .models import Image,Product,CategoryType
 from .forms import ImageForm,CustomerUserForm,ProductForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
@@ -152,7 +152,12 @@ def product_create(request):
 # Read a list of products
 def product_list(request):
     products = Product.objects.all()
-    return render(request, 'myapp/layout/product_list.html', {'products': products})
+    categories = CategoryType.objects.all()
+    context = {
+        'products': products,
+        'categories': categories
+    }
+    return render(request, 'myapp/layout/product_list.html', context)
 
 # Update an existing product
 def product_update(request, pk):
@@ -173,3 +178,11 @@ def product_delete(request, pk):
         product.delete()
         return redirect('product_list')
     return render(request, 'myapp/layout/product_delete.html', {'product': product})
+
+
+def products_by_category(request, category_id):
+    category = get_object_or_404(CategoryType, id=category_id)
+    print(category,'caetgory........')
+    products = Product.objects.filter(subcategory__category=category)
+    print(products,'products........')
+    return render(request, 'myapp/layout/category1.html', {'category': category, 'products': products})
