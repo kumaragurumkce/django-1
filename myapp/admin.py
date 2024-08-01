@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Image, CategoryType, SubCategory, Product
+from .models import Image, CategoryType, SubCategory, Product, Contact
 
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'collection_category', 'uploaded_at')
@@ -16,7 +16,10 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('subcategory',)
     search_fields = ('product_name', 'description')
 
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('name','email','feedback')
 admin.site.register(Image, ImageAdmin)
 admin.site.register(CategoryType)
 admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Contact,ContactAdmin)

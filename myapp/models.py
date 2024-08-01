@@ -43,3 +43,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
+    
+class Contact(models.Model):
+    name=models.CharField(max_length=30)
+    email=models.EmailField(max_length=40)
+    feedback=models.CharField(max_length=250)
+    

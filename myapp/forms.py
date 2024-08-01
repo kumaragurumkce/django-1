@@ -1,5 +1,5 @@
 from django import forms
-from .models import Image,User,Product
+from .models import Image,User,Product,Contact
 from django.contrib.auth.forms import UserCreationForm
 
 class ImageForm(forms.ModelForm):
@@ -49,3 +49,8 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model=Product
         fields= ['product_name','image','subcategory','price','description']
+        
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model=Contact
+        fields=['name','email','feedback']

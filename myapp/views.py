@@ -1,8 +1,8 @@
 # myapp/views.py
 
 from django.shortcuts import render, redirect,get_object_or_404
-from .models import Image,Product,CategoryType
-from .forms import ImageForm,CustomerUserForm,ProductForm
+from .models import Image,Product,CategoryType,Contact
+from .forms import ImageForm,CustomerUserForm,ProductForm,ContactForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -45,20 +45,33 @@ def about_page(request):
     return render(request,'myapp/layout/about.html')
 
 def contact_page(request):
-    return render(request,'myapp/layout/contact.html')
+    form_submitted = request.GET.get('submitted', False)
+
+    if request.method == 'POST':
+        print("Form submitted")  # Debugging line
+        contact = ContactForm(request.POST)
+        if contact.is_valid():
+            print("Form is valid")  # Debugging line
+            contact.save()
+            form_submitted = True
+            return redirect(f"{request.path}?submitted=True")
+    
+    contact = ContactForm()
+    return render(request, 'myapp/layout/contact.html', {'contact': contact, 'form_submitted': form_submitted})
+
 
 login_required(login_url='login')
 def addCart_page(request, pk):
-    image = get_object_or_404(Image, pk=pk)
+    image = get_object_or_404(Product, pk=pk)
     cart = request.session.get('cart', [])
-
+    print(image,"image......")
     if not isinstance(cart, list):
         cart = []
 
     # Add the item to the cart
     cart.append({
         'id': image.id,
-        'title': image.title,
+        'title': image.product_name,
         'image': image.image.url  # Ensure this field is correct
     })
 
@@ -67,9 +80,9 @@ def addCart_page(request, pk):
     return redirect('cartList_content')
 
 def updateCart_page(request,pk):
-    cart=get_object_or_404(Image,pk=pk)
+    cart=get_object_or_404(Product,pk=pk)
     if request.method == 'POST':
-        cart.title=request.POST.get('title',cart.title)
+        cart.product_name=request.POST.get('product_name',cart.product_name)
         if 'image' in request.FILES:
             cart.image = request.FILES['image']
         
@@ -81,7 +94,7 @@ def updateCart_page(request,pk):
 
 
 def deleteCart_page(request, pk):
-    cart = get_object_or_404(Image, pk=pk)
+    cart = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':
         cart.delete()
         return redirect('cartlist')
@@ -188,3 +201,5 @@ def products_by_category(request, category_id):
     products = Product.objects.filter(subcategory__category=category)
     print(products,'products........')
     return render(request, 'myapp/layout/category1.html', {'category': category, 'products': products})
+
+
