@@ -20,3 +20,11 @@
   height: 50%;
   object-fit: cover;
 }
+.category_img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.product-category .card-body .card-title{
+  color: black !important;
+}

@@ -15,14 +15,27 @@ def image_list(request, category=None):
     return render(request, 'myapp/layout/img_list.html', {'images': images, 'category': category})
 
 def image_upload(request):
+    products=Product.objects.all()
+    categories=CategoryType.objects.all()
+    
+    
     if request.method == 'POST':
-        form = ImageForm(request.POST, request.FILES)
+        form = ProductForm(request.POST, request.FILES)
+        print(form,'FORM.......')
         if form.is_valid():
             form.save()
             return redirect('image_list')
+        else:
+            (form.errors,'FORM ERRORS')
     else:
-        form = ImageForm()
-    return render(request, 'myapp/layout/img_upload.html', {'form': form})
+        form = ProductForm()
+        
+    context={
+        'form': form,
+        'products':products,
+        'categories':categories
+    }    
+    return render(request, 'myapp/layout/product_form.html',context)
 
 
 def home_content(request):
@@ -166,13 +179,14 @@ def product_create(request):
 
 # Read a list of products
 def product_list(request):
-    products = Product.objects.all()
     categories = CategoryType.objects.all()
     context = {
-        'products': products,
+        # 'products': products
         'categories': categories
     }
-    return render(request, 'myapp/layout/product_list.html', context)
+
+    
+    return render(request,'myapp/layout/product_list.html',context)
 
 # Update an existing product
 def product_update(request, pk):
@@ -181,7 +195,7 @@ def product_update(request, pk):
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            return redirect('product_list')
+            return redirect('image_upload')
     else:
         form = ProductForm(instance=product)
     return render(request, 'myapp/layout/product_form.html', {'form': form})

@@ -13,6 +13,22 @@
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
 
+
+    <h1>Update Product</h1>
+<a href="{% url 'product_create' %}">Create New Product</a>
+<ul>
+    {% for product in products %}
+    <li>
+        {{ product.product_name }} - {{ product.price }}
+
+
+
+        <img href="{{product.image.url}}" height=100px;>
+        <a href="{% url 'product_update' product.pk %}">Edit</a>
+        <a href="{% url 'product_delete' product.pk %}">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
     <a href="{% url 'image_list' %}">Back to Image List</a>
 
     {% endblock content %}

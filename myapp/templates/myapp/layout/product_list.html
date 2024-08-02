@@ -2,26 +2,27 @@
 {% load static %}
 
 {% block content %}
-<h1>Product List</h1>
-<a href="{% url 'product_create' %}">Create New Product</a>
-<ul>
-    {% for product in products %}
-    <li>
-        {{ product.product_name }} - {{ product.price }}
-        <img href="{{product.image.url}}" height=100px;>
-        <a href="{% url 'product_update' product.pk %}">Edit</a>
-        <a href="{% url 'product_delete' product.pk %}">Delete</a>
-    </li>
-    {% endfor %}
-</ul>
 
 
-<ul>
-    {% for category in categories %}
-    <li>
-        <a href="{% url 'products_by_category' category.id %}">{{ category.name }}</a>
-    </li>
-    {% endfor %}
-</ul>
+<div class="container">
+    <div class="row">
+
+        {% for category in categories %}
+      
+          <div class="col-md-6">
+      
+            <div class="card product-category h-100 w-100">  <a href="{% url 'products_by_category' category.id %}">
+                <img src="{% static 'myapp/assets/mobile-offers.jpg' %}"  class="category_img" alt="" srcset="">
+              </a>
+              <div class="card-body">
+                <h4 class="card-title text-center"> {{ category.name }} </h4>
+              </div>
+            </div>
+          </div>
+      
+        {% endfor %}
+      </div>
+</div>
+
      {% endblock content %}
     
