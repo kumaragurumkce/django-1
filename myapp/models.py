@@ -40,9 +40,12 @@ class Product(models.Model):
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
-
-    def __str__(self):
-        return self.product_name
+    quantity = models.PositiveIntegerField(default=0)
+    out_of_stock = models.BooleanField(default=False)
+    
+    def save(self, *args, **kwargs):
+        self.out_of_stock = self.quantity == 0
+        super().save(*args, **kwargs)
     
 class Contact(models.Model):
     name=models.CharField(max_length=30)

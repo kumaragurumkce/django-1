@@ -205,7 +205,7 @@ def product_delete(request, pk):
     product = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':
         product.delete()
-        return redirect('product_list')
+        return redirect('image_upload')
     return render(request, 'myapp/layout/product_delete.html', {'product': product})
 
 

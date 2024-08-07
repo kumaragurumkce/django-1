@@ -3,17 +3,33 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h1>Contact</h1>
+<div class="container col-8">
+    <h1>Contact</h1>
 
-{% if form_submitted %}
-    <div class="alert alert-success" role="alert">
-        Your message has been sent successfully!
-    </div>
-{% endif %}
-
-<form action="{% url 'contact_content' %}" method="post">
-    {% csrf_token %}
-    {{ contact|crispy }}
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    {% if form_submitted %}
+        <div id="success-message" class="alert alert-success" role="alert">
+            Your message has been sent successfully!
+        </div>
+    {% endif %}
+    
+    <form action="{% url 'contact_content' %}" method="post">
+        {% csrf_token %}
+        {{ contact|crispy }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+</div>
 {% endblock content %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const successMessage = document.getElementById("success-message");
+        if (successMessage) {
+            setTimeout(function() {
+                successMessage.style.display = 'display';
+            }, 2000); // 2000ms = 2 seconds
+        }
+    });
+</script>
+{% endblock extra_js %}

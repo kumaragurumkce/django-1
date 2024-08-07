@@ -1,20 +1,6 @@
-.trends_card .card-img-top,
-.collections_card .card-img-top,
-.img_list_card .card-img-top,
-.home_card .card-img-top {
-    height: 260px;
-    object-fit: cover;
-    width: 248px;
-}
 
-.card{
-    width: 250px;
-    background-color: aqua;
-    /* box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; */
-    box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
-}
 .card-title{
-  color: aqua !important;
+  color: #b1b1bc !important;
 }
 .cart_list_img{
   height: 50%;
@@ -27,4 +13,111 @@
 }
 .product-category .card-body .card-title{
   color: black !important;
+}
+.container-fluid{
+  left: 0;
+  top: 0;
+  padding: 0 0 !important;
+  margin: 0;
+}
+.add-cart{
+  background-color:#9595a2;
+   color: #ededf0; 
+   padding: 5px 10px; 
+   border: none; 
+   border-radius: 10px;
+   text-decoration: none;
+   font-size: 13px;
+}
+.home-content-1{
+  font-size: 35px;
+  background-color: #b1b1bc;
+font-weight: 500;
+}
+.row{
+  top: 0;
+  padding: 0;
+  margin: 0;
+}
+/* .category-product-description{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 1000px;
+} */
+ /* For small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+  .trends_card .card-img-top,
+  .collections_card .card-img-top,
+  .img_list_card .card-img-top,
+  .home_card .card-img-top {
+      height: 245px;
+      object-fit: cover;
+      width: 240px;
+      margin-left: 10px;
+  } 
+  
+  .card{
+      width: 260px;
+      background-color: aqua;
+      box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+  }  
+}
+
+/* For medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .trends_card .card-img-top,
+  .collections_card .card-img-top,
+  .img_list_card .card-img-top,
+  .home_card .card-img-top {
+      height: 260px;
+      object-fit: cover;
+      width: 210px;
+  } 
+  .card-img-top{
+    object-fit: cover;
+    height: auto;
+    width: 100%;
+  }
+  .card{
+      width: 230px;
+      background-color: aqua;
+      box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+  }  
+}
+
+/* For large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .trends_card .card-img-top,
+  .collections_card .card-img-top,
+  .img_list_card .card-img-top,
+  .home_card .card-img-top {
+      height: 260px;
+      object-fit: cover;
+      width: 220px;
+      margin-left: 13px;
+  } 
+  .card{
+      width: 250px;
+      background-color: aqua;
+      box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+  } 
+}
+
+/* For extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .trends_card .card-img-top,
+  .collections_card .card-img-top,
+  .img_list_card .card-img-top,
+  .home_card .card-img-top {
+      height: 260px;
+      object-fit: cover;
+      width: 240px;
+      margin-left: 5px;
+  } 
+  .card{
+      width: 250px;
+      background-color: aqua;
+      box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+  }
 }

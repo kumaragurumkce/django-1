@@ -4,16 +4,20 @@
 {% block content %}
 <h1>Products in {{ category.name }}</h1>
 <div class="container">
-    <div class="row">
+    <div class="row mb-4 ">
     {% for product in products %}
-        <div class="col-md-3">
+        <div class="col-md-4 col-xl-3 col-xxl-3 col-lg-4 col-sm-6  col-12 mt-2 d-flex justify-content-center">
             <div class="card home_card">
                 <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.product_name }}">
                 <div class="card-body">
                     <h5>{{ product.product_name }}</h5>  
-                    <p>{{ product.description }}</p>
+                    <!-- <p class="category-product-description">{{ product.description}}</p> -->
+                    <p class="category-product-description">{{ product.description|slice:":35" }}...</p>
                     <p>Price: {{ product.price }}</p>
                     <p>Subcategory: {{ product.subcategory.name }}</p>
+
+                    <a href="{% url 'addCart_content' pk=product.id %}" class="btn btn-primary">Add to cart</a>
+
                 </div>
             </div>
         </div>
