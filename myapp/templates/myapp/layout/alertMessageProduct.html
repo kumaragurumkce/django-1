@@ -1,0 +1,42 @@
+{% if messages %}
+    <div class="d-flex justify-content-end mt-3">
+        <div class="col-3">
+            {% for message in messages %}
+                <div class="alert 
+                    {% if message.tags == 'success' %}
+                        alert-success
+                    {% elif message.tags == 'warning' %}
+                        alert-warning
+                    {% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        // Wait for the DOM to fully load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select all alert messages
+            var alerts = document.querySelectorAll('.alert');
+
+            alerts.forEach(function(alert) {
+                // Set a timeout to hide the alert after 1 second
+                setTimeout(function() {
+                    alert.style.opacity = '0';
+                    // Remove the alert from the DOM after the transition
+                    setTimeout(function() {
+                        alert.style.display = 'none';
+                    }, 1000); // Match the duration with the CSS transition
+                }, 1700); // 1 second before starting to fade out
+            });
+        });
+    </script>
+{% endif %}
+<style>
+    .alert {
+    opacity: 1;
+    transition: opacity 1s ease-out;
+}
+
+</style>
