@@ -6,6 +6,8 @@ from .forms import ImageForm,CustomerUserForm,ProductForm,ContactForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from decimal import Decimal, InvalidOperation
 
 def image_list(request, category=None):
     images = Image.objects.all().order_by('-id')
@@ -76,19 +78,34 @@ def contact_page(request):
 login_required(login_url='login')
 def addCart_page(request, pk):
     image = get_object_or_404(Product, pk=pk)
+    print(image,'......................................................')
     cart = request.session.get('cart', [])
     print(image,"image......")
     if not isinstance(cart, list):
         cart = []
+    item_in_cart=any(item['id']==image.id for item in cart)
+    print(item_in_cart,'.......item_in_cart',)
+    if item_in_cart:
+        messages.warning(request,f'{image.product_name} is already in your cart!')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    # Add the item to the cart
+        # return render(request,'myapp/layout/home.html', {'images': Product.objects.all()})
+        # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        
     cart.append({
         'id': image.id,
         'title': image.product_name,
-        'image': image.image.url  # Ensure this field is correct
+        'image': image.image.url,
+        'price_amount':str(image.price),
+        
+        # 'price':image.price
     })
 
     request.session['cart'] = cart
+    print('cart',cart)
+    messages.success(request, f'{image.product_name} has been added to your cart!')
+    print(item_in_cart,'.......')
     
     return redirect('cartList_content')
 
@@ -110,18 +127,40 @@ def deleteCart_page(request, pk):
     cart = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':
         cart.delete()
+        
         return redirect('cartlist')
     return render(request, 'myapp/layout/deleteCart.html', {'cart': cart})
 
 def cartList_page(request):
     cart_array = request.session.get('cart', [])
     
-    # Use a dictionary to filter duplicates by product ID
+    # Filter out duplicates and sort items
     unique_cart = {item['id']: item for item in cart_array}.values()
+    cart = sorted(unique_cart, key=lambda item: item['id'], reverse=True)
     
-    cart = sorted(unique_cart, key=lambda item: item['id'],reverse=True)
-    print(cart,'Cart++++++++++++')
-    return render(request,'myapp/layout/addcart.html',{'cart':cart})
+    # Initialize the total price as Decimal
+    total_price = Decimal('0.00')
+    
+    # Sum the price_amount values
+    for item in cart:
+        price_amount = item.get('price_amount', '0.00')  # Default to '0.00' if key is missing
+        
+        try:
+            # Convert price_amount to Decimal and add to total_price
+            total_price += Decimal(price_amount)  # Ensure price_amount is a valid numeric string
+        except (ValueError, InvalidOperation):
+            print(f"Invalid price value: {price_amount}")
+
+    print(f"Total Price: {total_price}")
+    print(cart,'cartitem')
+    # Ensure 'context' is a dictionary
+    context = {
+        'cart': cart,
+        'total_price': total_price
+    }
+    
+    return render(request, 'myapp/layout/addcart.html', context)
+
 
 def deleteCartItem(request, pk):
     cart = request.session.get('cart', [])
@@ -131,7 +170,8 @@ def deleteCartItem(request, pk):
     
     # Update the session cart
     request.session['cart'] = cart
-    
+    messages.success(request, 'Item successfully removed from your cart.')
+    print('delte'),cart
     return redirect('cartList_content') 
 
 def login_page(request):
