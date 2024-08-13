@@ -2,8 +2,13 @@
 {% load static %}
 
 {% block content %}
+{% include 'myapp/layout/alertMessageProduct.html' %}
+
 <h1>Products in {{ category.name }}</h1>
 <div class="container">
+
+
+    
     <div class="row mb-4 ">
     {% for product in products %}
         <div class="col-md-4 col-xl-3 col-xxl-3 col-lg-4 col-sm-6  col-12 mt-2 d-flex justify-content-center">

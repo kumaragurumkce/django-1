@@ -1,4 +1,35 @@
+body{
+  padding: 0;
+  margin: 0;
+  left: 0;
+  right: 0;
+}
 
+.container-fluid{
+  padding: 0 !important; 
+}
+.navbar .nav-link{
+  font-size: 15px;
+  font-weight: 500;
+}
+.carousel-item{
+height: 100vh;
+min-height: 300px;
+background-size: cover;
+background-position: center;
+}
+.navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+.navbar.scrolled .nav-link {
+  color: rgb(39, 39, 35); /* change to your desired color */
+}
+.navbar{
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+}
 .card-title{
   color: #b1b1bc !important;
 }
@@ -6,10 +37,24 @@
   height: 50%;
   object-fit: cover;
 }
+
+
 .category_img{
-  height: 100%;
   width: 100%;
+  height: 300px;
   object-fit: cover;
+  object-position: center;
+  
+}
+
+.product-category{
+  width: 80%; /* You can adjust this to your needs */
+  height: 300px; /* Set this according to the design requirements */
+   /* Adds some space between the images */
+
+
+  border-radius: 10px; /* Optional: adds rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds a shadow effect */
 }
 .product-category .card-body .card-title{
   color: black !important;
@@ -40,21 +85,13 @@ font-weight: 500;
   margin: 0;
 }
 .total{
-  border: 1px solid black;
+  border: 1px solid white;
   padding: 10px 20px;
-background-color: black;
-height: 30px;
-font-size: 80px !important;
+   font-weight: 600;
+   border-radius: 10px;
+
 }
 
-
-/* .category-product-description{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 1000px;
-} */
- /* For small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
   .trends_card .card-img-top,
   .collections_card .card-img-top,
@@ -68,9 +105,10 @@ font-size: 80px !important;
   
   .card{
       width: 260px;
-      background-color: aqua;
+    
       box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
-  }  
+  } 
+   
 }
 
 /* For medium devices (tablets, 768px and up) */
@@ -90,7 +128,7 @@ font-size: 80px !important;
   }
   .card{
       width: 230px;
-      background-color: aqua;
+      
       box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
   }  
 }
@@ -108,7 +146,7 @@ font-size: 80px !important;
   } 
   .card{
       width: 250px;
-      background-color: aqua;
+
       box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
   } 
 }
@@ -126,7 +164,7 @@ font-size: 80px !important;
   } 
   .card{
       width: 250px;
-      background-color: aqua;
+      
       box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
   }
 }

@@ -20,6 +20,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 pip install django          
 python manage.py runserver
+python manage.py livereload
 
 
 
@@ -35,3 +36,6 @@ python -m venv myenv
 django-admin startproject webProject
 cd webProject
 python manage.py startapp FORMAPP
+pip install django-livereload-server
+ pip freeze > requirements.txt
+python manage.py livereload

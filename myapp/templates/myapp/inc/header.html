@@ -19,20 +19,25 @@
 
 </style>
 <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent"">
+        <div class="container-fluid mx-2">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% if user.is_company_admin or user.is_employee_admin or user.is_authenticated%} 
+                    
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'home_content' %}">Home</a>
                     </li>
                     
-                    {% if user.is_authenticated %}
+                   {% endif %}
                     
+                    {% if user.is_employee_admin and user.is_authenticated %}
+                        
+                        
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'product_list' %}">Product_list</a>
                     </li>    
@@ -47,15 +52,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about_content' %}">About us</a>
                     </li>
+                    {% endif %}
+
+                    {% if user.is_company_admin %} 
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'image_upload' %}">Upload</a>
                     </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'cartList_content' %}"><img src="{% static 'myapp/assets/icons/shopping-cart.png' %}" class="img-fluid" height="30" width="30" alt="cart" srcset=""></a>
                     </li>
+
+                    
+                    {% if user.is_authenticated %}                        
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                     </li>
+                    
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -70,3 +83,15 @@
         </div>
     </nav>
 </header>
+<script>
+    
+    window.addEventListener('scroll', function () {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+  </script>

@@ -46,22 +46,16 @@ def home_content(request):
     
     return render(request,'myapp/layout/home.html',{'images':products})
 
-
-def collections_page(request):
-    collections_images=Image.objects.filter(category='collections').order_by('-id')
-    return render(request,'myapp/layout/collections.html',{'images': collections_images})
-
-
 def trends_page(request):
-    trends_images=Image.objects.filter(category='trends').order_by('-id')
-    return render(request,'myapp/layout/trends.html',{'images':trends_images})
+    trends_product=Product.objects.all().order_by('-id')
+    print(trends_product,"trends")
+    return render(request,'myapp/layout/trends.html',{'images':trends_product})
 
 def about_page(request):
     return render(request,'myapp/layout/about.html')
 
 def contact_page(request):
     form_submitted = request.GET.get('submitted', False)
-
     if request.method == 'POST':
         print("Form submitted")  # Debugging line
         contact = ContactForm(request.POST)
@@ -147,7 +141,9 @@ def cartList_page(request):
         
         try:
             # Convert price_amount to Decimal and add to total_price
-            total_price += Decimal(price_amount)  # Ensure price_amount is a valid numeric string
+            total_price += Decimal(price_amount)
+            total_price
+            # Ensure price_amount is a valid numeric string
         except (ValueError, InvalidOperation):
             print(f"Invalid price value: {price_amount}")
 
@@ -224,6 +220,7 @@ def product_list(request):
         # 'products': products
         'categories': categories
     }
+    print(categories,'.......categories')
 
     
     return render(request,'myapp/layout/product_list.html',context)

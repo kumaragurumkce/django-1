@@ -1,5 +1,5 @@
 {% if messages %}
-    <div class="d-flex justify-content-end mt-3">
+    <div class="d-flex justify-content-end mt-3 fixed-bottom">
         <div class="col-3">
             {% for message in messages %}
                 <div class="alert 
@@ -7,7 +7,7 @@
                         alert-success
                     {% elif message.tags == 'warning' %}
                         alert-warning
-                    {% endif %}" role="alert">
+                    {% endif %} alert-box" role="alert">
                     {{ message }}
                 </div>
             {% endfor %}
@@ -18,13 +18,15 @@
         // Wait for the DOM to fully load
         document.addEventListener('DOMContentLoaded', function() {
             // Select all alert messages
-            var alerts = document.querySelectorAll('.alert');
+            var alerts = document.querySelectorAll('.alert-box');
 
             alerts.forEach(function(alert) {
+                // Add shake animation when the alert is displayed
+                alert.classList.add('show');
+                
                 // Set a timeout to hide the alert after 1 second
                 setTimeout(function() {
-                    alert.style.opacity = '0';
-                    // Remove the alert from the DOM after the transition
+                    alert.classList.add('hide');
                     setTimeout(function() {
                         alert.style.display = 'none';
                     }, 1000); // Match the duration with the CSS transition
@@ -33,10 +35,25 @@
         });
     </script>
 {% endif %}
-<style>
-    .alert {
-    opacity: 1;
-    transition: opacity 1s ease-out;
-}
 
+<style>
+    .alert-box {
+        opacity: 1;
+        transition: opacity 1s ease-out, transform 1s ease-out;
+        animation: shake 0.5s ease;
+    
+    }
+
+    .alert-box.hide {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        50% { transform: translateX(10px); }
+        75% { transform: translateX(-10px); }
+        100% { transform: translateX(0); }
+    }
 </style>

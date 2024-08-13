@@ -23,6 +23,9 @@ class Image(models.Model):
 
 class CategoryType(models.Model):
     name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='category_product/')
+    
+    
 
     def __str__(self):
         return self.name

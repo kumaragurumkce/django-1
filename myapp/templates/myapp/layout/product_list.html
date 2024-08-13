@@ -4,20 +4,22 @@
 {% block content %}
 
 
-<div class="container">
+<div class="container productlist_container">
     <div class="row">
 
         {% for category in categories %}
       
-          <div class="col-md-6">
+          <div class="col-md-12 col-lg-6 col-sm-12 col-12 mt-2">
       
-            <div class="card product-category h-100 w-100">  <a href="{% url 'products_by_category' category.id %}">
-                <img src="{% static 'myapp/assets/mobile-offers.jpg' %}"  class="category_img" alt="" srcset="">
-              </a>
+            <div class="card product-category h-100 w-100">  <a href="{% url 'products_by_category' category.id %}" class="text-decoration-none">
+                <img src="{{ category.image.url }}"  class="category_img" alt="" srcset="">
               <div class="card-body">
-                <h4 class="card-title text-center"> {{ category.name }} </h4>
+                <h5 class="card-title text-center "> {{ category.name }} </h5>
               </div>
+
             </div>
+          </a>
+
           </div>
       
         {% endfor %}
