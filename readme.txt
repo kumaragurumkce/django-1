@@ -20,7 +20,6 @@ venv\Scripts\activate
 pip install -r requirements.txt
 pip install django          
 python manage.py runserver
-python manage.py livereload
 
 
 

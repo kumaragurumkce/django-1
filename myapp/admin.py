@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Image, CategoryType, SubCategory, Product, Contact
+from .models import Image, CategoryType, SubCategory, Product, Contact,Profile
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
 
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'collection_category', 'uploaded_at')
@@ -21,6 +24,23 @@ class ProductAdmin(admin.ModelAdmin):
 
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('name','email','feedback')
+    
+
+
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+    fields = ['user_type']  # Ensure 'user_type' is editable in admin
+
+class UserAdmin(BaseUserAdmin):
+    inlines = (ProfileInline,)
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
+
+
 admin.site.register(Image, ImageAdmin)
 admin.site.register(CategoryType,CategoryTypeAdmin)
 admin.site.register(SubCategory, SubCategoryAdmin)

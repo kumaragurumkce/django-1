@@ -1,20 +1,13 @@
 # myapp/views.py
 
 from django.shortcuts import render, redirect,get_object_or_404
-from .models import Image,Product,CategoryType,Contact
-from .forms import ImageForm,CustomerUserForm,ProductForm,ContactForm
+from .models import Image,Product,CategoryType,Contact,Profile
+from .forms import ImageForm,ProductForm,ContactForm,UserRegisterForm,UserLoginForm,ProfileForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from decimal import Decimal, InvalidOperation
-
-def image_list(request, category=None):
-    images = Image.objects.all().order_by('-id')
-    # if category:
-    #     images = images.filter(category=category)
-    #     print(category,">>>>>>>>>>>>>>>>>>>")
-    return render(request, 'myapp/layout/img_list.html', {'images': images, 'category': category})
 
 def image_upload(request):
     products=Product.objects.all()
@@ -26,7 +19,7 @@ def image_upload(request):
         print(form,'FORM.......')
         if form.is_valid():
             form.save()
-            return redirect('image_list')
+            return redirect('home_content')
         else:
             (form.errors,'FORM ERRORS')
     else:
@@ -40,11 +33,59 @@ def image_upload(request):
     return render(request, 'myapp/layout/product_form.html',context)
 
 
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegisterForm(request.POST)
+        if user_form.is_valid():
+            user = user_form.save(commit=False)
+            user.set_password(user_form.cleaned_data['password'])
+            user.save()
+            Profile.objects.create(user=user, user_type=Profile.CUSTOMER)
+            user = authenticate(username=user_form.cleaned_data['username'], password=user_form.cleaned_data['password'])
+            if user:
+                login(request, user)
+                return redirect('home_content')
+    else:
+        user_form = UserRegisterForm()
+    return render(request, 'myapp/layout/register.html', {'form': user_form})
+
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            if Profile.objects.get(user=user).user_type == 'admin':
+                return redirect('image_upload')
+            else:
+                return redirect('home_content')
+    else:
+        form = UserLoginForm()
+    return render(request, 'myapp/layout/login.html', {'form': form})
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect('login')
+
+
+
 def home_content(request):
-    # home_images=Image.objects.filter(category='home').order_by('-id')
-    products = Product.objects.all()
-    
-    return render(request,'myapp/layout/home.html',{'images':products})
+    user = request.user
+    # products = Product.objects.all()  # Replace with specific filtering if required
+
+    try:
+        profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        # Handle the case where the user doesn't have a profile
+        return HttpResponseNotFound("Profile not found")
+
+    if profile.user_type == 1 or profile.user_type == 0:
+        # Fetch products based on specific criteria if needed
+        products1 = Product.objects.all()  # Replace with specific filtering if required
+    print('not print',products1)
+    return render(request, 'myapp/layout/home.html', {'images': products1})
 
 def trends_page(request):
     trends_product=Product.objects.all().order_by('-id')
@@ -170,37 +211,41 @@ def deleteCartItem(request, pk):
     print('delte'),cart
     return redirect('cartList_content') 
 
-def login_page(request):
-    if request.method == 'POST':
-        username=request.POST['username']
-        password=request.POST['password1']
-        user = authenticate(request,username=username,password=password)
-        if user is not None:
-            login(request,user)
-            return redirect('home_content')
-        else:
-            messages.error(request,'Invaid Username or password')
-    return render(request,'myapp/layout/login.html')
+# def login_page(request):
+#     if request.method == 'POST':
+#         username=request.POST['username']
+#         password=request.POST['password1']
+#         user = authenticate(request,username=username,password=password)
+#         if user is not None:
+#             login(request,user)
+#             return redirect('home_content')
+#         else:
+#             messages.error(request,'Invaid Username or password')
+#     return render(request,'myapp/layout/login.html')
 
-def logout_page(request):
-    logout(request)
-    return redirect('login')
+# def logout_page(request):
+#     logout(request)
+#     return redirect('login')
 
-def register_page(request):
-    if request.method == 'POST':
-        form_login = CustomerUserForm(request.POST)
-        if form_login.is_valid():
-            form_login.save()
-            username=form_login.cleaned_data.get('username')
-            password=form_login.cleaned_data.get('password1')
-            user=authenticate(username=username,password=password)
-            login(request,user)
-            return redirect('home')
-    else: 
-        form_login =CustomerUserForm()
-            # print(form,"form_else")
+# def register_page(request):
+#     if request.method == 'POST':
+#         form_login = CustomerUserForm(request.POST)
+#         if form_login.is_valid():
+#             form_login.save()
+#             username=form_login.cleaned_data.get('username')
+#             password=form_login.cleaned_data.get('password1')
+#             user=authenticate(username=username,password=password)
+#             print('...')          
+#             login(request,user)
+#             return redirect('home_content')
+#     else: 
+#         form_login =CustomerUserForm()
+#             # print(form,"form_else")
             
-    return render(request,'myapp/layout/register.html',{'form':form_login})
+#     return render(request,'myapp/layout/register.html',{'form':form_login})
+
+
+
 
 
 def product_create(request):

@@ -9,7 +9,7 @@
     <div class="card col-lg-4">
         <form method="post" class="my-3">
             {% csrf_token %}
-        <div class="mb-3">
+        {% comment %} <div class="mb-3">
             <label for="username">Username</label>
             <input type="text" name="username" id="username_id" class="form-control" placeholder="Username" required>
         </div>
@@ -17,7 +17,8 @@
             <label for="password">Password</label>
             <input type="password" name="password1" class="form-control" placeholder="Password" required>
         
-        </div>
+        </div> {% endcomment %}
+        {{form.as_p}}
         <button type="submit" class="btn btn-primary">Sign In</button>
         </form>
         

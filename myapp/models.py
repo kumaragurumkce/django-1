@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.contrib import admin
 
 class Category(models.TextChoices):
     HOME = 'home', 'Home'
@@ -55,3 +56,23 @@ class Contact(models.Model):
     email=models.EmailField(max_length=40)
     feedback=models.CharField(max_length=250)
     
+class Profile(models.Model):
+    ADMIN = 0
+    CUSTOMER = 1
+    
+    USER_TYPE_CHOICES = [
+        (ADMIN,'Admin'),
+        (CUSTOMER,'Customer'),
+    ]
+    
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user_type=models.IntegerField(choices=USER_TYPE_CHOICES,default=CUSTOMER)
+    
+
+    def __str__(self):
+        return f"{self.user.username} - {self.get_user_type_display()}"
+    
+
+@admin.register(Profile)
+class Admin(admin.ModelAdmin):
+    list_display=('user','user_type')

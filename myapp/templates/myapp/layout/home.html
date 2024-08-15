@@ -47,6 +47,9 @@
 
 
 
+{% if user.profile.user_type == 1 %}
+  
+  
     <div class="container-fluid home-content-1 text-center py-2">
         Your one-stop shop for the latest electronics and gadgets.
     </div>
@@ -78,6 +81,7 @@
         {% endfor %}
     </div>
 </div>
+{% endif %}
 
 
 {% endblock carousel %}
